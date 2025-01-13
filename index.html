@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>실시간 세계 시간</title>
+    <title>국가별 주요 도시 시간 및 비행 시간</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,149 +13,115 @@
         h1 {
             color: #333;
         }
-        .section-title {
-            font-size: 1.5em;
-            margin: 20px 0 10px;
-        }
-        .time-container {
+        .flag-container {
             display: flex;
             justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-bottom: 50px;
         }
-        .time-box {
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            min-width: 150px;
-            text-align: center;
+        .flag {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .flag:hover {
+            transform: scale(1.1);
+        }
+        .country-details {
+            display: none;
+            margin-top: 20px;
         }
         .city {
             font-size: 1.2em;
             margin-bottom: 10px;
             font-weight: bold;
         }
-        .city.seoul { color: red; }
-        .city.beijing { color: orange; }
-        .city.tokyo { color: yellow; }
-        .city.madrid { color: green; }
-        .city.berlin { color: blue; }
-        .city.london { color: indigo; }
-        .city.newyork { color: purple; }
-        .city.la { color: purple; }
         .time {
             font-size: 1.5em;
             color: #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .flag {
-            width: 24px;
-            height: auto;
-            margin-left: 10px;
+        .flight-time {
+            font-size: 1em;
+            color: #777;
         }
     </style>
 </head>
 <body>
-    <h1>실시간 세계 시간</h1>
+    <h1>국가별 주요 도시 시간 및 비행 시간</h1>
 
-    <!-- 한국, 중국, 일본 -->
-    <div class="section-title">한국, 중국, 일본</div>
-    <div class="time-container">
-        <div class="time-box">
-            <div class="city seoul">서울 (한국)</div>
-            <div class="time">
-                <span id="seoul-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/kr.png" alt="한국 국기">
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="city beijing">베이징 (중국)</div>
-            <div class="time">
-                <span id="beijing-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/cn.png" alt="중국 국기">
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="city tokyo">도쿄 (일본)</div>
-            <div class="time">
-                <span id="tokyo-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/jp.png" alt="일본 국기">
-            </div>
-        </div>
+    <!-- 국기 표시 -->
+    <div class="flag-container">
+        <img class="flag" src="https://flagcdn.com/w320/kr.png" alt="한국" id="korea" title="한국">
+        <img class="flag" src="https://flagcdn.com/w320/cn.png" alt="중국" id="china" title="중국">
+        <img class="flag" src="https://flagcdn.com/w320/jp.png" alt="일본" id="japan" title="일본">
     </div>
 
-    <!-- 스페인, 독일, 영국 -->
-    <div class="section-title">스페인, 독일, 영국</div>
-    <div class="time-container">
-        <div class="time-box">
-            <div class="city madrid">마드리드 (스페인)</div>
-            <div class="time">
-                <span id="madrid-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/es.png" alt="스페인 국기">
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="city berlin">베를린 (독일)</div>
-            <div class="time">
-                <span id="berlin-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/de.png" alt="독일 국기">
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="city london">런던 (영국)</div>
-            <div class="time">
-                <span id="london-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/gb.png" alt="영국 국기">
-            </div>
-        </div>
-    </div>
-
-    <!-- 뉴욕, 엘에이 -->
-    <div class="section-title">뉴욕, 엘에이</div>
-    <div class="time-container">
-        <div class="time-box">
-            <div class="city newyork">뉴욕 (미국)</div>
-            <div class="time">
-                <span id="newyork-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/us.png" alt="미국 국기">
-            </div>
-        </div>
-        <div class="time-box">
-            <div class="city la">엘에이 (미국)</div>
-            <div class="time">
-                <span id="la-time">--:--:--</span>
-                <img class="flag" src="https://flagcdn.com/w320/us.png" alt="미국 국기">
-            </div>
-        </div>
+    <!-- 국가별 세부 정보 -->
+    <div class="country-details" id="details">
+        <h2 id="country-name"></h2>
+        <div id="city-times"></div>
     </div>
 
     <script>
-        function updateTime() {
-            const now = new Date();
+        const flightTimes = {
+            korea: {
+                name: "한국",
+                cities: [
+                    { name: "서울", timeZone: "Asia/Seoul", flight: "0시간" },
+                    { name: "부산", timeZone: "Asia/Seoul", flight: "1시간" },
+                    { name: "제주", timeZone: "Asia/Seoul", flight: "1시간 15분" }
+                ]
+            },
+            china: {
+                name: "중국",
+                cities: [
+                    { name: "베이징", timeZone: "Asia/Shanghai", flight: "2시간" },
+                    { name: "상하이", timeZone: "Asia/Shanghai", flight: "2시간 20분" },
+                    { name: "광저우", timeZone: "Asia/Shanghai", flight: "3시간 20분" }
+                ]
+            },
+            japan: {
+                name: "일본",
+                cities: [
+                    { name: "도쿄", timeZone: "Asia/Tokyo", flight: "2시간 10분" },
+                    { name: "오사카", timeZone: "Asia/Tokyo", flight: "1시간 50분" },
+                    { name: "후쿠오카", timeZone: "Asia/Tokyo", flight: "1시간 10분" }
+                ]
+            }
+        };
 
-            // 한국, 중국, 일본 시간
-            document.getElementById('seoul-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" })).toLocaleTimeString();
-            document.getElementById('beijing-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" })).toLocaleTimeString();
-            document.getElementById('tokyo-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" })).toLocaleTimeString();
+        const detailsContainer = document.getElementById("details");
+        const countryName = document.getElementById("country-name");
+        const cityTimes = document.getElementById("city-times");
 
-            // 스페인, 독일, 영국 시간
-            document.getElementById('madrid-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" })).toLocaleTimeString();
-            document.getElementById('berlin-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Berlin" })).toLocaleTimeString();
-            document.getElementById('london-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" })).toLocaleTimeString();
+        function updateDetails(countryKey) {
+            const country = flightTimes[countryKey];
 
-            // 뉴욕, 엘에이 시간
-            document.getElementById('newyork-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" })).toLocaleTimeString();
-            document.getElementById('la-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" })).toLocaleTimeString();
+            // 국가명 설정
+            countryName.textContent = country.name;
+
+            // 도시 시간과 비행 시간 설정
+            cityTimes.innerHTML = "";
+            country.cities.forEach(city => {
+                const now = new Date().toLocaleString("en-US", { timeZone: city.timeZone });
+                const cityElement = document.createElement("div");
+                cityElement.innerHTML = `
+                    <div class="city">${city.name}</div>
+                    <div class="time">현재 시간: ${new Date(now).toLocaleTimeString()}</div>
+                    <div class="flight-time">인천공항 -> ${city.name}: ${city.flight}</div>
+                `;
+                cityTimes.appendChild(cityElement);
+            });
+
+            // 상세 정보 표시
+            detailsContainer.style.display = "block";
         }
 
-        // 1초마다 업데이트
-        setInterval(updateTime, 1000);
-        updateTime(); // 초기 호출
+        // 국기 클릭 이벤트 추가
+        document.getElementById("korea").addEventListener("click", () => updateDetails("korea"));
+        document.getElementById("china").addEventListener("click", () => updateDetails("china"));
+        document.getElementById("japan").addEventListener("click", () => updateDetails("japan"));
     </script>
 </body>
 </html>
