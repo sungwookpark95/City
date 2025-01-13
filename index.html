@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 시간 확인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .time-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 20px;
+        }
+        .time-box {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .city {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .time {
+            font-size: 1.5em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>한국, 중국, 일본의 실시간 시간</h1>
+    <div class="time-container">
+        <div class="time-box">
+            <div class="city">서울 (한국)</div>
+            <div class="time" id="seoul-time">--:--:--</div>
+        </div>
+        <div class="time-box">
+            <div class="city">베이징 (중국)</div>
+            <div class="time" id="beijing-time">--:--:--</div>
+        </div>
+        <div class="time-box">
+            <div class="city">도쿄 (일본)</div>
+            <div class="time" id="tokyo-time">--:--:--</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+
+            // 서울 시간 (KST)
+            const seoulTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+            document.getElementById('seoul-time').textContent = seoulTime.toLocaleTimeString();
+
+            // 베이징 시간 (CST)
+            const beijingTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+            document.getElementById('beijing-time').textContent = beijingTime.toLocaleTimeString();
+
+            // 도쿄 시간 (JST)
+            const tokyoTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+            document.getElementById('tokyo-time').textContent = tokyoTime.toLocaleTimeString();
+        }
+
+        // 1초마다 업데이트
+        setInterval(updateTime, 1000);
+        updateTime(); // 초기 호출
+    </script>
+</body>
+</html>
 
