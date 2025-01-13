@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>실시간 시간 확인</title>
+    <title>실시간 세계 시간</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,11 +13,16 @@
         h1 {
             color: #333;
         }
+        .section-title {
+            font-size: 1.5em;
+            margin: 20px 0 10px;
+        }
         .time-container {
             display: flex;
             justify-content: center;
             gap: 50px;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
         }
         .time-box {
             padding: 20px;
@@ -25,6 +30,7 @@
             border-radius: 8px;
             background-color: #f9f9f9;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
         }
         .city {
             font-size: 1.2em;
@@ -37,7 +43,10 @@
     </style>
 </head>
 <body>
-    <h1>한국, 중국, 일본의 실시간 시간</h1>
+    <h1>실시간 세계 시간</h1>
+
+    <!-- 한국, 중국, 일본 -->
+    <div class="section-title">한국, 중국, 일본</div>
     <div class="time-container">
         <div class="time-box">
             <div class="city">서울 (한국)</div>
@@ -53,21 +62,53 @@
         </div>
     </div>
 
+    <!-- 스페인, 독일, 영국 -->
+    <div class="section-title">스페인, 독일, 영국</div>
+    <div class="time-container">
+        <div class="time-box">
+            <div class="city">마드리드 (스페인)</div>
+            <div class="time" id="madrid-time">--:--:--</div>
+        </div>
+        <div class="time-box">
+            <div class="city">베를린 (독일)</div>
+            <div class="time" id="berlin-time">--:--:--</div>
+        </div>
+        <div class="time-box">
+            <div class="city">런던 (영국)</div>
+            <div class="time" id="london-time">--:--:--</div>
+        </div>
+    </div>
+
+    <!-- 뉴욕, 엘에이 -->
+    <div class="section-title">뉴욕, 엘에이</div>
+    <div class="time-container">
+        <div class="time-box">
+            <div class="city">뉴욕 (미국)</div>
+            <div class="time" id="newyork-time">--:--:--</div>
+        </div>
+        <div class="time-box">
+            <div class="city">엘에이 (미국)</div>
+            <div class="time" id="la-time">--:--:--</div>
+        </div>
+    </div>
+
     <script>
         function updateTime() {
             const now = new Date();
 
-            // 서울 시간 (KST)
-            const seoulTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-            document.getElementById('seoul-time').textContent = seoulTime.toLocaleTimeString();
+            // 한국, 중국, 일본 시간
+            document.getElementById('seoul-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" })).toLocaleTimeString();
+            document.getElementById('beijing-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" })).toLocaleTimeString();
+            document.getElementById('tokyo-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" })).toLocaleTimeString();
 
-            // 베이징 시간 (CST)
-            const beijingTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
-            document.getElementById('beijing-time').textContent = beijingTime.toLocaleTimeString();
+            // 스페인, 독일, 영국 시간
+            document.getElementById('madrid-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Madrid" })).toLocaleTimeString();
+            document.getElementById('berlin-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Berlin" })).toLocaleTimeString();
+            document.getElementById('london-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" })).toLocaleTimeString();
 
-            // 도쿄 시간 (JST)
-            const tokyoTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-            document.getElementById('tokyo-time').textContent = tokyoTime.toLocaleTimeString();
+            // 뉴욕, 엘에이 시간
+            document.getElementById('newyork-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" })).toLocaleTimeString();
+            document.getElementById('la-time').textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" })).toLocaleTimeString();
         }
 
         // 1초마다 업데이트
@@ -76,4 +117,3 @@
     </script>
 </body>
 </html>
-
