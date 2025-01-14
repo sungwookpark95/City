@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('https://source.unsplash.com/1600x900/?nail-art'); /* 네일아트 관련 AI 이미지 */
+            background-image: url('https://source.unsplash.com/1600x900/?nail-art');
             background-size: cover;
             background-position: center;
             color: #fff;
@@ -97,6 +97,21 @@
         <li onclick="loadShops('마포구')">마포구</li>
         <li onclick="loadShops('강북구')">강북구</li>
         <li onclick="loadShops('중구')">중구</li>
+        <li onclick="loadShops('송파구')">송파구</li>
+        <li onclick="loadShops('광진구')">광진구</li>
+        <li onclick="loadShops('영등포구')">영등포구</li>
+        <li onclick="loadShops('은평구')">은평구</li>
+        <li onclick="loadShops('종로구')">종로구</li>
+        <li onclick="loadShops('노원구')">노원구</li>
+        <li onclick="loadShops('양천구')">양천구</li>
+        <li onclick="loadShops('강동구')">강동구</li>
+        <li onclick="loadShops('금천구')">금천구</li>
+        <li onclick="loadShops('도봉구')">도봉구</li>
+        <li onclick="loadShops('구로구')">구로구</li>
+        <li onclick="loadShops('서대문구')">서대문구</li>
+        <li onclick="loadShops('강서구')">강서구</li>
+        <li onclick="loadShops('성북구')">성북구</li>
+        <li onclick="loadShops('동작구')">동작구</li>
     </ul>
 
     <div class="shop-list" id="shop-list">
@@ -105,16 +120,80 @@
     </div>
 
     <script>
-        // 구별 네일아트샵 데이터
         const nailShops = {
             "강남구": [
-                { name: "네일위자드", location: "강남구 역삼동", phone: "02-123-4567", price: "₩30,000~₩50,000" },
-                { name: "탄네일", location: "강남구 선릉로", phone: "02-234-5678", price: "₩40,000~₩60,000" },
-                { name: "네일밈", location: "강남구 강남역", phone: "02-345-6789", price: "₩50,000~₩70,000" }
-            ]
-        };
+                { name: "네일위자드", location: "서울 강남구 역삼동", phone: "02-123-4567", price: "₩30,000~₩50,000" },
+                { name: "탄네일", location: "서울 강남구 선릉로", phone: "02-234-5678", price: "₩40,000~₩60,000" },
+                { name: "네일밈", location: "서울 강남구 강남역", phone: "02-345-6789", price: "₩50,000~₩70,000" },
+                { name: "다바다네일 논현점", location: "서울 강남구 강남대로118길", phone: "02-543-6789", price: "₩35,000~₩60,000" },
+                { name: "샤이니네일", location: "서울 강남구 삼성로", phone: "02-555-5678", price: "₩40,000~₩70,000" }
+            ],
+            "서초구": [
+                { name: "네일에끌라", location: "서울 서초구 서래로", phone: "02-111-1111", price: "₩30,000~₩50,000" },
+                { name: "샵오픽 네일", location: "서울 서초구 반포대로28길", phone: "02-222-2222", price: "₩40,000~₩60,000" },
+                { name: "러블리네일", location: "서울 서초구 신반포", phone: "02-333-3333", price: "₩50,000~₩90,000" },
+                { name: "하이네일", location: "서울 서초구 양재역", phone: "02-444-4444", price: "₩45,000~₩70,000" },
+                { name: "로맨스네일", location: "서울 서초구 서초동", phone: "02-555-5555", price: "₩40,000~₩60,000" }
+            ],
+            "관악구": [
+                { name: "네일샵스트릿", location: "서울 관악구 신림동", phone: "02-666-6666", price: "₩25,000~₩45,000" },
+                { name: "스타네일", location: "서울 관악구 봉천동", phone: "02-777-7777", price: "₩30,000~₩50,000" },
+                { name: "핑크네일", location: "서울 관악구 서울대입구역", phone: "02-888-8888", price: "₩40,000~₩70,000" },
+                { name: "블루네일", location: "서울 관악구 은천로", phone: "02-999-9999", price: "₩30,000~₩60,000" },
+                { name: "프리미엄네일", location: "서울 관악구 남현동", phone: "02-000-0000", price: "₩50,000~₩80,000" }
+            ],
+            "성동구": [
+                { name: "네일로망", location: "서울 성동구 왕십리로", phone: "02-101-0101", price: "₩30,000~₩50,000" },
+                { name: "스윗네일", location: "서울 성동구 행당동", phone: "02-202-0202", price: "₩40,000~₩70,000" },
+                { name: "파스텔네일", location: "서울 성동구 금호동", phone: "02-303-0303", price: "₩35,000~₩60,000" },
+                { name: "컬러풀네일", location: "서울 성동구 옥수동", phone: "02-404-0404", price: "₩50,000~₩80,000" },
+                { name: "엘레강스네일", location: "서울 성동구 성수동", phone: "02-505-0505", price: "₩60,000~₩90,000" }
+            ],
+            "중랑구": [
+                { name: "글로리네일", location: "서울 중랑구 면목로", phone: "02-606-0606", price: "₩30,000~₩50,000" },
+                { name: "더네일", location: "서울 중랑구 상봉로", phone: "02-707-0707", price: "₩40,000~₩60,000" },
+                { name: "로얄네일", location: "서울 중랑구 망우로", phone: "02-808-0808", price: "₩35,000~₩65,000" },
+                { name: "에스네일", location: "서울 중랑구 중화동", phone: "02-909-0909", price: "₩50,000~₩80,000" },
+                { name: "뷰티네일", location: "서울 중랑구 면목동", phone: "02-010-1010", price: "₩60,000~₩90,000" }
+            ],
+            "강동구": [
+            { name: "모던네일", location: "서울 강동구 천호동", phone: "02-111-1111", price: "₩30,000~₩50,000" },
+            { name: "다이아네일", location: "서울 강동구 길동", phone: "02-222-2222", price: "₩40,000~₩70,000" },
+            { name: "라라네일", location: "서울 강동구 상일동", phone: "02-333-3333", price: "₩50,000~₩80,000" },
+            { name: "스타일네일", location: "서울 강동구 명일동", phone: "02-444-4444", price: "₩35,000~₩60,000" },
+            { name: "큐티네일", location: "서울 강동구 둔촌동", phone: "02-555-5555", price: "₩30,000~₩55,000" }
+        ],
+        "금천구": [
+            { name: "엣지네일", location: "서울 금천구 가산동", phone: "02-666-6666", price: "₩40,000~₩60,000" },
+            { name: "미미네일", location: "서울 금천구 독산동", phone: "02-777-7777", price: "₩30,000~₩50,000" },
+            { name: "베스트네일", location: "서울 금천구 시흥동", phone: "02-888-8888", price: "₩50,000~₩70,000" },
+            { name: "루미네일", location: "서울 금천구 가산로", phone: "02-999-9999", price: "₩45,000~₩75,000" },
+            { name: "컬러네일", location: "서울 금천구 서부샛길", phone: "02-000-0000", price: "₩35,000~₩65,000" }
+        ],
+        "도봉구": [
+            { name: "러블리네일", location: "서울 도봉구 창동", phone: "02-101-0101", price: "₩30,000~₩50,000" },
+            { name: "샤이닝네일", location: "서울 도봉구 쌍문동", phone: "02-202-0202", price: "₩40,000~₩70,000" },
+            { name: "네일온", location: "서울 도봉구 방학동", phone: "02-303-0303", price: "₩50,000~₩80,000" },
+            { name: "스마일네일", location: "서울 도봉구 도봉로", phone: "02-404-0404", price: "₩35,000~₩60,000" },
+            { name: "아트네일", location: "서울 도봉구 도봉동", phone: "02-505-0505", price: "₩45,000~₩75,000" }
+        ],
+        "구로구": [
+            { name: "더블유네일", location: "서울 구로구 구로동", phone: "02-606-0606", price: "₩50,000~₩70,000" },
+            { name: "스파네일", location: "서울 구로구 개봉동", phone: "02-707-0707", price: "₩40,000~₩60,000" },
+            { name: "에이스네일", location: "서울 구로구 고척동", phone: "02-808-0808", price: "₩45,000~₩65,000" },
+            { name: "엠네일", location: "서울 구로구 오류동", phone: "02-909-0909", price: "₩35,000~₩55,000" },
+            { name: "위너네일", location: "서울 구로구 신도림동", phone: "02-010-1010", price: "₩60,000~₩80,000" }
+        ],
+        "서대문구": [
+            { name: "아트네일", location: "서울 서대문구 신촌동", phone: "02-111-1111", price: "₩40,000~₩60,000" },
+            { name: "네일하우스", location: "서울 서대문구 연희동", phone: "02-222-2222", price: "₩30,000~₩50,000" },
+            { name: "에스네일", location: "서울 서대문구 홍은동", phone: "02-333-3333", price: "₩50,000~₩80,000" },
+            { name: "뷰티네일", location: "서울 서대문구 북가좌동", phone: "02-444-4444", price: "₩35,000~₩55,000" },
+            { name: "다이아네일", location: "서울 서대문구 충정로", phone: "02-555-5555", price: "₩45,000~₩75,000" }
+        ]
+            // 나머지 20개 구도 동일한 형식으로 추가
+        }; 
 
-        // 구 클릭 시 샵 정보 로드
         function loadShops(district) {
             const shopListDiv = document.getElementById('shop-list');
             const shops = nailShops[district] || [];
