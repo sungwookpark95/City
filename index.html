@@ -3,125 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>국가별 주요 도시 시간 및 비행 시간</title>
+    <title>서울 네일아트샵</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
         }
         h1 {
+            text-align: center;
             color: #333;
         }
-        .flag-container {
+        ul {
+            list-style: none;
+            padding: 0;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        .flag {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .flag:hover {
-            transform: scale(1.1);
-        }
-        .country-details {
-            display: none;
             margin-top: 20px;
         }
-        .city {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            font-weight: bold;
+        li {
+            margin: 10px 15px;
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline;
         }
-        .time {
-            font-size: 1.5em;
+        li:hover {
+            color: #0056b3;
+        }
+        .shop-list {
+            margin-top: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .shop {
+            margin-bottom: 15px;
+        }
+        .shop h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .shop p {
+            margin: 5px 0;
+            font-size: 14px;
             color: #555;
         }
-        .flight-time {
-            font-size: 1em;
-            color: #777;
+        .shop-list h2 {
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>국가별 주요 도시 시간 및 비행 시간</h1>
+    <h1>서울 네일아트샵</h1>
+    <p style="text-align: center;">구를 클릭하면 해당 구의 네일아트샵 정보를 확인할 수 있습니다.</p>
+    <ul id="districts">
+        <li onclick="loadShops('강남구')">강남구</li>
+        <li onclick="loadShops('서초구')">서초구</li>
+        <li onclick="loadShops('관악구')">관악구</li>
+        <li onclick="loadShops('성동구')">성동구</li>
+        <li onclick="loadShops('중랑구')">중랑구</li>
+        <li onclick="loadShops('동대문구')">동대문구</li>
+        <li onclick="loadShops('마포구')">마포구</li>
+        <li onclick="loadShops('강북구')">강북구</li>
+        <li onclick="loadShops('중구')">중구</li>
+    </ul>
 
-    <!-- 국기 표시 -->
-    <div class="flag-container">
-        <img class="flag" src="https://flagcdn.com/w320/kr.png" alt="한국" id="korea" title="한국">
-        <img class="flag" src="https://flagcdn.com/w320/cn.png" alt="중국" id="china" title="중국">
-        <img class="flag" src="https://flagcdn.com/w320/jp.png" alt="일본" id="japan" title="일본">
-    </div>
-
-    <!-- 국가별 세부 정보 -->
-    <div class="country-details" id="details">
-        <h2 id="country-name"></h2>
-        <div id="city-times"></div>
+    <div class="shop-list" id="shop-list">
+        <h2>네일아트샵 정보</h2>
+        <p>구를 선택하여 정보를 확인하세요.</p>
     </div>
 
     <script>
-        const flightTimes = {
-            korea: {
-                name: "한국",
-                cities: [
-                    { name: "서울", timeZone: "Asia/Seoul", flight: "0시간" },
-                    { name: "부산", timeZone: "Asia/Seoul", flight: "1시간" },
-                    { name: "제주", timeZone: "Asia/Seoul", flight: "1시간 15분" }
-                ]
-            },
-            china: {
-                name: "중국",
-                cities: [
-                    { name: "베이징", timeZone: "Asia/Shanghai", flight: "2시간" },
-                    { name: "상하이", timeZone: "Asia/Shanghai", flight: "2시간 20분" },
-                    { name: "광저우", timeZone: "Asia/Shanghai", flight: "3시간 20분" }
-                ]
-            },
-            japan: {
-                name: "일본",
-                cities: [
-                    { name: "도쿄", timeZone: "Asia/Tokyo", flight: "2시간 10분" },
-                    { name: "오사카", timeZone: "Asia/Tokyo", flight: "1시간 50분" },
-                    { name: "후쿠오카", timeZone: "Asia/Tokyo", flight: "1시간 10분" }
-                ]
-            }
+        // 구별 네일아트샵 데이터
+        const nailShops = {
+            "강남구": [
+                { name: "네일위자드", location: "강남구 역삼동", phone: "02-123-4567", price: "₩30,000~₩50,000" },
+                { name: "탄네일", location: "강남구 선릉로", phone: "02-234-5678", price: "₩40,000~₩60,000" },
+                { name: "네일밈", location: "강남구 강남역", phone: "02-345-6789", price: "₩50,000~₩70,000" },
+                { name: "다바다네일 논현점", location: "강남구 강남대로118길", phone: "02-543-6789", price: "₩35,000~₩60,000" }
+            ],
+            "서초구": [
+                { name: "네일에끌라", location: "서초구 서래로", phone: "02-123-4567", price: "₩30,000~₩50,000" },
+                { name: "샵오픽 네일", location: "서초구 반포대로28길", phone: "02-234-5678", price: "₩40,000~₩60,000" }
+            ],
+            "관악구": [
+                { name: "네일샵스트릿", location: "관악구 신림동", phone: "02-345-6789", price: "₩25,000~₩45,000" }
+            ],
+            "성동구": [
+                { name: "공간네일 왕십리점", location: "성동구 왕십리로", phone: "02-543-6789", price: "₩35,000~₩60,000" }
+            ],
+            "중랑구": [
+                { name: "하은네일 면목점", location: "중랑구 면목로", phone: "02-123-4567", price: "₩30,000~₩50,000" }
+            ],
+            "동대문구": [
+                { name: "오르네일", location: "동대문구 전농로", phone: "02-234-5678", price: "₩40,000~₩60,000" }
+            ],
+            "마포구": [
+                { name: "다혜킴네일 홍대점", location: "마포구 와우산로27길", phone: "02-345-6789", price: "₩35,000~₩60,000" }
+            ],
+            "강북구": [
+                { name: "네일리스트네일", location: "강북구 도봉로", phone: "02-543-6789", price: "₩50,000~₩70,000" }
+            ],
+            "중구": [
+                { name: "명동 네일샵", location: "중구 충무로1가", phone: "02-234-5678", price: "₩40,000~₩60,000" }
+            ]
         };
 
-        const detailsContainer = document.getElementById("details");
-        const countryName = document.getElementById("country-name");
-        const cityTimes = document.getElementById("city-times");
+        // 구 클릭 시 샵 정보 로드
+        function loadShops(district) {
+            const shopListDiv = document.getElementById('shop-list');
+            const shops = nailShops[district] || [];
+            shopListDiv.innerHTML = `<h2>${district}의 네일아트샵</h2>`;
+            
+            if (shops.length === 0) {
+                shopListDiv.innerHTML += "<p>등록된 샵이 없습니다.</p>";
+                return;
+            }
 
-        function updateDetails(countryKey) {
-            const country = flightTimes[countryKey];
-
-            // 국가명 설정
-            countryName.textContent = country.name;
-
-            // 도시 시간과 비행 시간 설정
-            cityTimes.innerHTML = "";
-            country.cities.forEach(city => {
-                const now = new Date().toLocaleString("en-US", { timeZone: city.timeZone });
-                const cityElement = document.createElement("div");
-                cityElement.innerHTML = `
-                    <div class="city">${city.name}</div>
-                    <div class="time">현재 시간: ${new Date(now).toLocaleTimeString()}</div>
-                    <div class="flight-time">인천공항 -> ${city.name}: ${city.flight}</div>
+            shops.forEach(shop => {
+                shopListDiv.innerHTML += `
+                    <div class="shop">
+                        <h3>${shop.name}</h3>
+                        <p><strong>위치:</strong> ${shop.location}</p>
+                        <p><strong>전화번호:</strong> ${shop.phone}</p>
+                        <p><strong>가격:</strong> ${shop.price}</p>
+                    </div>
                 `;
-                cityTimes.appendChild(cityElement);
             });
-
-            // 상세 정보 표시
-            detailsContainer.style.display = "block";
         }
-
-        // 국기 클릭 이벤트 추가
-        document.getElementById("korea").addEventListener("click", () => updateDetails("korea"));
-        document.getElementById("china").addEventListener("click", () => updateDetails("china"));
-        document.getElementById("japan").addEventListener("click", () => updateDetails("japan"));
     </script>
 </body>
 </html>
