@@ -7,13 +7,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-image: url('https://source.unsplash.com/1600x900/?nail-art'); /* 네일아트 관련 AI 이미지 */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
         }
         h1 {
             text-align: center;
-            color: #333;
+            font-size: 3rem;
+            color: #ff85a1;
+            text-shadow: 2px 2px 5px #000;
+            margin-top: 30px;
+        }
+        p {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffe0f0;
         }
         ul {
             list-style: none;
@@ -24,47 +36,58 @@
             margin-top: 20px;
         }
         li {
-            margin: 10px 15px;
+            margin: 20px;
+            font-family: "맑은 고딕", sans-serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            color: #fff;
+            text-shadow: 1px 1px 3px #000;
+            background-image: linear-gradient(45deg, #ff85a1, #ffc3d6, #ffecd2, #ff85a1);
+            animation: colorChange 5s infinite linear;
             cursor: pointer;
-            color: #007BFF;
-            text-decoration: underline;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         li:hover {
-            color: #0056b3;
+            transform: scale(1.1);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
         }
         .shop-list {
             margin-top: 30px;
-            max-width: 800px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .shop {
-            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .shop h3 {
             margin: 0;
-            font-size: 18px;
-            color: #333;
+            font-size: 1.5rem;
+            color: #ff85a1;
+            font-weight: bold;
         }
         .shop p {
             margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-        .shop-list h2 {
+            font-size: 1.2rem;
             color: #333;
+        }
+        @keyframes colorChange {
+            0% { background-image: linear-gradient(45deg, #ff85a1, #ffc3d6, #ffecd2, #ff85a1); }
+            25% { background-image: linear-gradient(45deg, #ffc3d6, #ff85a1, #ffecd2, #ffc3d6); }
+            50% { background-image: linear-gradient(45deg, #ffecd2, #ffc3d6, #ff85a1, #ffecd2); }
+            75% { background-image: linear-gradient(45deg, #ffc3d6, #ff85a1, #ffecd2, #ffc3d6); }
+            100% { background-image: linear-gradient(45deg, #ff85a1, #ffc3d6, #ffecd2, #ff85a1); }
         }
     </style>
 </head>
 <body>
     <h1>서울 네일아트샵</h1>
-    <p style="text-align: center;">구를 클릭하면 해당 구의 네일아트샵 정보를 확인할 수 있습니다.</p>
-    <ul id="districts">
+    <p>구를 클릭하면 해당 구의 네일아트샵 정보를 확인할 수 있습니다.</p>
+    <ul>
         <li onclick="loadShops('강남구')">강남구</li>
         <li onclick="loadShops('서초구')">서초구</li>
         <li onclick="loadShops('관악구')">관악구</li>
@@ -87,33 +110,7 @@
             "강남구": [
                 { name: "네일위자드", location: "강남구 역삼동", phone: "02-123-4567", price: "₩30,000~₩50,000" },
                 { name: "탄네일", location: "강남구 선릉로", phone: "02-234-5678", price: "₩40,000~₩60,000" },
-                { name: "네일밈", location: "강남구 강남역", phone: "02-345-6789", price: "₩50,000~₩70,000" },
-                { name: "다바다네일 논현점", location: "강남구 강남대로118길", phone: "02-543-6789", price: "₩35,000~₩60,000" }
-            ],
-            "서초구": [
-                { name: "네일에끌라", location: "서초구 서래로", phone: "02-123-4567", price: "₩30,000~₩50,000" },
-                { name: "샵오픽 네일", location: "서초구 반포대로28길", phone: "02-234-5678", price: "₩40,000~₩60,000" }
-            ],
-            "관악구": [
-                { name: "네일샵스트릿", location: "관악구 신림동", phone: "02-345-6789", price: "₩25,000~₩45,000" }
-            ],
-            "성동구": [
-                { name: "공간네일 왕십리점", location: "성동구 왕십리로", phone: "02-543-6789", price: "₩35,000~₩60,000" }
-            ],
-            "중랑구": [
-                { name: "하은네일 면목점", location: "중랑구 면목로", phone: "02-123-4567", price: "₩30,000~₩50,000" }
-            ],
-            "동대문구": [
-                { name: "오르네일", location: "동대문구 전농로", phone: "02-234-5678", price: "₩40,000~₩60,000" }
-            ],
-            "마포구": [
-                { name: "다혜킴네일 홍대점", location: "마포구 와우산로27길", phone: "02-345-6789", price: "₩35,000~₩60,000" }
-            ],
-            "강북구": [
-                { name: "네일리스트네일", location: "강북구 도봉로", phone: "02-543-6789", price: "₩50,000~₩70,000" }
-            ],
-            "중구": [
-                { name: "명동 네일샵", location: "중구 충무로1가", phone: "02-234-5678", price: "₩40,000~₩60,000" }
+                { name: "네일밈", location: "강남구 강남역", phone: "02-345-6789", price: "₩50,000~₩70,000" }
             ]
         };
 
